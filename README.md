@@ -14,4 +14,4 @@ Queriamos muito ver o jogo funcionando, então decidimos utilizar a api do disco
 # Instalação
 Como utilizamos a api do discord, criamos um BOT já em produção para pular a etapa de instalação e você ir direto para a diversão! Basta clicar [aqui](https://discord.com/api/oauth2/authorize?client_id=806297071690579968&permissions=8&scope=bot) e adicionar o BOT em algum servidor e digitar o comando `@CardBot help`!
 
-Calma, fizemos sim um passo a passo de instalação para rodar localmente ou em outro lugar o projeto, segue o passo passo [aqui](github/instalation.md)!
+Fizemos sim um passo a passo de instalação para rodar localmente ou em outro lugar o projeto, segue o passo passo [aqui](github/instalation.md)!
