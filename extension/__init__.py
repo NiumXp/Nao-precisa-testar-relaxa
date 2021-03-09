@@ -22,4 +22,4 @@ def asset(*values):
     str
         Caminho para o arquivo.
     """
-    return os.path.join(_main_path, *values)
+    return os.path.join(_main_path, "assets", *values)
