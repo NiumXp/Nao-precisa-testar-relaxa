@@ -30,7 +30,7 @@ $ pip3 install -r requirements.txt
 ```
 Isso fará com que todas as dependências do projeto sejam baixadas.
 
-Agora é necessário criar o arquivo  `.env` e colocar as variáveis `BOT_DISCORD_TOKEN` que precisará ter o token de autorização do BOT que pode ser pego criando uma aplicação e no discord (você pode seguir este [passo a passo](https://discordpy.readthedocs.io/en/latest/discord.html) de como criar uma aplicação e um BOT da documentação do wrapper em que estamos utilizando), e `BOT_PREFIX` que será o prefixo dos comandos do BOT, segue um exemplo:
+Agora é necessário criar o arquivo  `.env` e colocar as variáveis `BOT_DISCORD_TOKEN` que precisará ter o token de autorização do BOT que pode ser pego criando uma aplicação no discord (você pode seguir este [passo a passo](https://discordpy.readthedocs.io/en/latest/discord.html) de como criar uma aplicação e um BOT da documentação do wrapper em que estamos utilizando), e `BOT_PREFIX` que será o prefixo dos comandos do BOT, segue um exemplo:
 ```
 BOT_PREFIX=.
 BOT_DISCORD_TOKEN=toKeN.doBoT-.Aqui
