@@ -8,7 +8,7 @@ import os
 import re
 import traceback
 
-from extension import CardBot, asset
+from extension import CardBot
 
 # Instânceia a classe do BOT e passa o prefixo declarado na variável de
 # ambiente.
