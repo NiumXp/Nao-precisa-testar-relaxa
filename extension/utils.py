@@ -76,7 +76,7 @@ class Cards(enum.Enum):
     PINK = enum.auto()
 
 
-class Hearts(enum.IntEnum):
+class Hearts(enum.Enum):
     """
     Enumeração para os corações do jogo.
 
