@@ -16,12 +16,6 @@ bot_prefix = os.environ["BOT_PREFIX"]
 bot_prefix = when_mentioned_or(bot_prefix)
 bot = CardBot(bot_prefix)
 
-# Registra o evento de quando o BOT estiver pronto.
-@bot.event
-async def on_ready():
-    # Imprime uma mensagem apenas para sabermos se o BOT está ligado.
-    print("I'm ready!")
-
 # Percorre o diretório `cogs` para carregar todos os comandos do BOT.
 for dirpath, _, filenames in os.walk("cogs"):
     for filename in filenames:
