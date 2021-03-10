@@ -10,6 +10,7 @@ CROSS_EMOJI = "❌"
 
 class CardBot(Bot):
     async def on_ready(self):
+        """Imprime `I'm ready!` no terminal."""
         print("I'm ready!")
 
     async def get_emoji_confirmation(self, channel: discord.TextChannel,
