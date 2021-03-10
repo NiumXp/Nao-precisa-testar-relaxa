@@ -52,11 +52,12 @@ class CardBot(Bot):
         def check(reaction, user) -> bool:
             # Checa se a pessoa que reagiu é a pessoa correta para a
             # confirmação.
+
+            # Verifica se o usuário que reagiu é o esperado.
+            # Verifica se a reação foi na mensagem do BOT.
+            # Verifica se o emoji reagido é um emoji de confirmação.
             return user.id == user_id and \
-                # Verifica se a reação foi na mensagem do BOT.
                 reaction.message.id == message.id and \
-                    # Verifica se o emoji reagido é um emoji de
-                    # confirmação.
                     str(reaction.emoji) in [CHECK_MARK_EMOJI, CROSS_EMOJI]
 
         try:
