@@ -1,5 +1,7 @@
 import os
+import json
 import __main__
+import typing as t
 
 from .bot import CardBot
 
@@ -23,3 +25,25 @@ def asset(*values):
         Caminho para o arquivo.
     """
     return os.path.join(_main_path, "assets", *values)
+
+_emojis_path = asset("emojis.json")
+with open(_emojis_path, encoding="utf-8") as _emojis:
+    _emojis = json.load(_emojis)
+
+def emoji(name: str) -> t.Optional[str]:
+    """
+    Retorna o emoji com nome `name` que estiver em assets/emojis.json.
+    Retorna `None` se não encontrar.
+
+    Parâmetros
+    ----------
+    name : str
+        Nome do emoji.
+
+    Retornos
+    --------
+    t.Optional[str]
+        Retorna uma string se o emoji for encontrado, caso contrário, 
+        retorna `None`.
+    """
+    return _emojis.get(name)
