@@ -25,8 +25,11 @@ def asset(*values):
     """
     return os.path.join(_main_path, "assets", *values)
 
+# Pega o caminho para o JSON dos emojis.
 _emojis_path = asset("emojis.json")
+# Abre o arquivo para pegar o conteúdo.
 with open(_emojis_path, encoding="utf-8") as _emojis:
+    # Transforma o conteúdo em um dicionário.
     _emojis = json.load(_emojis)
 
 def emoji(name: str) -> t.Optional[str]:
