@@ -4,7 +4,7 @@ import discord
 import typing as t
 
 
-class Fun(commands.Fun):
+class Fun(commands.Cog):
     """
     Comandos de diversão!
     """
