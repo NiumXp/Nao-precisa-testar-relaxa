@@ -1,8 +1,12 @@
 {
-    "RedCard": "🟥",
-    "BlueCard": "🟦",
-    "GreenCard": "🟩",
-    "YellowCard": "🟨",
-    "WhiteCard": "⬜",
-    "PinkCard": "🟪"
+    "Cards": "<:Cards:819280152114102273>",
+
+    "RedCard": "<:RedCard:819275972409950208>",
+    "BlueCard": "<:BlueCard:819284128917749831>",
+    "GreenCard": "<:GreenCard:819275971923935253>",
+    "YellowCard": "<:YellowCard:819275972171923456>",
+    "WhiteCard": "<:WhiteCard:819280361145237636>",
+    "BlackCard": "<:BlackCard:819277677554565142>",
+    "OrangeCard": "<:OrangeCard:819284128876593172>",
+    "PinkCard": "<:PinkCard:819285273401753601>"
 }
