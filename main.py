@@ -2,6 +2,8 @@
 from dotenv import load_dotenv
 load_dotenv()
 
+from discord.ext.commands import when_mentioned_or
+
 import os
 import re
 import traceback
@@ -10,7 +12,9 @@ from extension import CardBot, asset
 
 # Instânceia a classe do BOT e passa o prefixo declarado na variável de
 # ambiente.
-bot = CardBot(os.environ["BOT_PREFIX"])
+bot_prefix = os.environ["BOT_PREFIX"]
+bot_prefix = when_mentioned_or(bot_prefix)
+bot = CardBot(bot_prefix)
 
 # Registra o evento de quando o BOT estiver pronto.
 @bot.event
