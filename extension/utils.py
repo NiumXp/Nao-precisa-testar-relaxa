@@ -74,3 +74,23 @@ class Cards(enum.Enum):
     BLACK = enum.auto()
     ORANGE = enum.auto()
     PINK = enum.auto()
+
+
+class Hearts(enum.IntEnum):
+    """
+    Enumeração para os corações do jogo.
+
+    O valor de cada atributo corresponde ao seu emoji - veja Nota.
+
+    Nota
+    ----
+    O valor do atributo é gerado pelo seu nome capitalizado e sufixado
+    com `Heart`, depois é pego o valor utilizando `extension.utils.emoji`
+    """
+    def _generate_next_value_(name, *_):
+        name = name.capitalize() + "Heart"
+        return emoji(name)
+
+    RED = enum.auto()
+    YELLOW = enum.auto()
+    GREEN = enum.auto()
