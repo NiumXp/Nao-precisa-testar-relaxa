@@ -71,4 +71,6 @@ class Cards(enum.Enum):
     GREEN = enum.auto()
     YELLOW = enum.auto()
     WHITE = enum.auto()
+    BLACK = enum.auto()
+    ORANGE = enum.auto()
     PINK = enum.auto()
