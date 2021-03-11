@@ -134,21 +134,21 @@ class Fun(commands.Cog):
                 # oponente.
                 await message.edit(content=f"O seu oponente escolheu a carta {card.name} {card.value}!", embed=None, delete_after=30)
 
-            player_message = "Você perdeu!"
-            enemy_message = "Você venceu!"
-            if enemy.dead:
-                player_message = "Você venceu!"
-                enemy_message = "Você perdeu!"
+        player_message = "Você perdeu!"
+        enemy_message = "Você venceu!"
+        if enemy.dead:
+            player_message = "Você venceu!"
+            enemy_message = "Você perdeu!"
 
-            try:
-                await player.user.send(player_message, delete_after=30)
-            except discord.Forbidden:
-                pass
+        try:
+            await player.user.send(player_message, delete_after=30)
+        except discord.Forbidden:
+            pass
 
-            try:
-                await enemy.user.send(enemy_message, delete_after=30)
-            except discord.Forbidden:
-                pass
+        try:
+            await enemy.user.send(enemy_message, delete_after=30)
+        except discord.Forbidden:
+            pass
 
     @commands.command(
         name="desafiar",
