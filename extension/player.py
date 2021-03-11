@@ -1,15 +1,24 @@
 import discord
 
 import random
-import collections
 
 from extension import utils
 
 
 class Player:
     """
+    Estrutura de um jogador para facíl manipulação com as cartas e
+    corações dele.
+
+    Parâmetros
+    ----------
+    user : discord.User
+        Usuário do jogador.
+
     Atributos
     ---------
+    user : discord.User
+        Usuário do jogador.
     lifes : list[Heart]
         Vidas do jogador.
     cards : list[utils.Cards]
@@ -18,19 +27,36 @@ class Player:
     def __init__(self, user: discord.User):
         self.user = user
 
+        # Cria o atributo de vida com todas os corações disponíveis. 
         self.lifes = list(utils.Hearts)
+        # Cria o atributo de cartas só que com cartas aleatórias.
         self.cards = self._random_cards()
 
     @staticmethod
-    def _random_cards() -> list:
-        return random.choices(list(utils.Cards), k=10)
+    def _random_cards(amount=8) -> list:
+        """Retorna uma lista com `amount` cartas aleatórias."""
+        return random.choices(list(utils.Cards), k=8)
 
     def embed(self) -> discord.Embed:
-        # cards = collections.Counter(self.cards)
-        # cards = " ".join(f"{k.value}x{v}" for k, v in cards.items())
-        cards = ''.join(l.value for l in self.cards)
+        """
+        Retora um `discord.Embed` com os corações e cartas do jogador.
+        """
+        # Cria uma função que será a "chave" para uma ordenação.
+        key = lambda i: i.value
+
+        # Ordena as cartas para mostrar bonitinho.
+        cards = sorted(self.cards, key=key)
+        # Transforma a lista de cartas em uma string com todas elas
+        # ordenadas e juntas.
+        cards = ''.join(l.value for l in cards)
+
+        # Ordena todos os corações do jogador.
+        hearts = sorted(self.lifes, key=key)
+        # Transforma a lista de cartas em uma string com todas elas
+        # ordenadas e juntas.
         hearts = ' '.join(l.value for l in self.lifes)
 
+        # Retorna um Embed com os fileds dos corações e cartas.
         return discord.Embed(color=0xFFA500,
         ).set_thumbnail(url=self.user.avatar_url
         ).add_field(name="Corações", value=hearts, inline=False

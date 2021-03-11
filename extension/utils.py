@@ -63,8 +63,7 @@ class Cards(enum.Enum):
     com `Card`, depois é pego o valor utilizando `extension.utils.emoji`
     """
     def _generate_next_value_(name, *_):
-        name = name.capitalize() + "Card"
-        return emoji(name)
+        return emoji(name.capitalize() + "Card")
 
     RED = enum.auto()
     BLUE = enum.auto()
@@ -88,8 +87,7 @@ class Hearts(enum.Enum):
     com `Heart`, depois é pego o valor utilizando `extension.utils.emoji`
     """
     def _generate_next_value_(name, *_):
-        name = name.capitalize() + "Heart"
-        return emoji(name)
+        return emoji(name.capitalize() + "Heart")
 
     RED = enum.auto()
     YELLOW = enum.auto()

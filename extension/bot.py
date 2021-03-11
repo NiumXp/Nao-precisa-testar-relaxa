@@ -4,8 +4,10 @@ import discord
 import asyncio
 import typing as t
 
-CHECK_MARK_EMOJI = "✅"
-CROSS_EMOJI = "❌"
+from extension import utils
+
+CHECK_MARK_EMOJI = utils.emoji("CHECK_MARK")
+CROSS_EMOJI = utils.emoji("CROSS")
 
 
 class CardBot(Bot):

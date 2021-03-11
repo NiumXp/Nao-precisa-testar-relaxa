@@ -11,7 +11,11 @@
     "PinkCard": "<:PinkCard:819285273401753601>",
 
 
-    "RedHeart": "❤️",
-    "YellowHeart": "💛",
-    "GreenHeart": "💚"
+    "RedHeart": "<:RedHeart:819368074947723264>",
+    "YellowHeart": "<:YellowHeart:819379742599020544>",
+    "GreenHeart": "<:GreenHeart:819368363704320030>",
+
+
+    "CHECK_MARK": "✅",
+    "CROSS": "❌"
 }
