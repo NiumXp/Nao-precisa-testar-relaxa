@@ -25,4 +25,4 @@ class Player:
     @property
     def dead(self) -> bool:
         """Diz se o jogador está morto."""
-        return bool(self.lifes)
+        return not bool(self.lifes)

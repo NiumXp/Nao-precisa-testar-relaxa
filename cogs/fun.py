@@ -51,7 +51,7 @@ class Fun(commands.Cog):
 
         await channel.send("Partida iniciada no privado de vocês, deem uma olhada!")
 
-        while not player.dead and not enemy.dead:
+        while (not player.dead) and (not enemy.dead):
             player, enemy = enemy, player
 
             message = await enemy.user.send("Aguarde o turno do seu oponente!")
