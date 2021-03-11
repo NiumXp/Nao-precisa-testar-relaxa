@@ -1,8 +1,8 @@
 # Nao precisa testar, relaxa
 
 ### Integrantes
-- Nathan - [Nium#6672](https://github.com/NiumXp) (Cycle e Desenvolvedor)
-- Gabriel - [black1363#0257]() (Creativo e Desenvolvedor)
+- Nathan - [Nium#6672](https://github.com/NiumXp) (Cycle, Tester e Desenvolvedor)
+- Gabriel - [black1363#0257]() (Creativo, Tester e Desenvolvedor)
 - João - [jv#8586](https://www.instagram.com/jvartesgraficas/) (Designer UX)
 - Yago - [DNK#6725](https://github.com/yagomichalak) (Desenvolvedor)
 
