@@ -16,7 +16,9 @@ class Fun(commands.Cog):
         self.bot = bot
 
     async def get_turn_action(self, player: Player) -> t.Optional[Cards]:
-        message = await player.user.send("É a sua vez! Escolha a sua carta!")
+        message = await player.user.send(
+            "É a sua vez! Escolha a sua carta!",
+            embed=player.embed())
 
         for card in set(player.cards):
             await message.add_reaction(card.value)
@@ -54,7 +56,8 @@ class Fun(commands.Cog):
         while (not player.dead) and (not enemy.dead):
             player, enemy = enemy, player
 
-            message = await enemy.user.send("Aguarde o turno do seu oponente!")
+            message = await enemy.user.send(
+                "Aguarde o turno do seu oponente!", embed=player.embed())
 
             try:
                 card = await self.get_turn_action(player)
