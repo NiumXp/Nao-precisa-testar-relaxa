@@ -4,7 +4,7 @@ import discord
 import asyncio
 import typing as t
 
-from extension import Player
+from extension import Player, cards
 from extension.utils import Hearts, Cards
 
 
@@ -130,9 +130,16 @@ class Fun(commands.Cog):
                 # diz para o seu oponente que a partida foi cancelada.
                 return await message.edit(content="Partida cancelada! Seu oponente demorou demais para jogar!", embed=None)
             else:
-                # Se o jogador tiver escolhido uma carta, é avisado seu
-                # oponente.
-                await message.edit(content=f"O seu oponente escolheu a carta {card.name} {card.value}!", embed=None, delete_after=30)
+                # Pega a ação da carta.
+                card_action = cards.get_by_name(card.name)
+                # Executa a ação da carta.
+                player_result, enemy_result = await card_action.execute()
+                # Envia para o outro jogador a carta que o jogador
+                # escolheu e o resultado da ação da carta.
+                await message.edit(content=f"O seu oponente escolheu a carta {card.name} {card.value}! {enemy_result}", embed=None, delete_after=30)
+                # Envia para o jogador a carta que ele selecionou e o
+                # resultado da sua ação.
+                await player.user.send(f"Você usou a carta {card.name} {card.value}! {player_result}", delete_after=30)
 
         player_message = "Você perdeu!"
         enemy_message = "Você venceu!"
