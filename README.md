@@ -15,3 +15,35 @@ Queriamos muito ver o jogo funcionando, então decidimos utilizar a api do disco
 Como utilizamos a api do discord, criamos um BOT já em produção para pular a etapa de instalação e você ir direto para a diversão! Basta clicar [aqui](https://discord.com/api/oauth2/authorize?client_id=806297071690579968&permissions=8&scope=bot) e adicionar o BOT em algum servidor e digitar o comando `@CardBot help`!
 
 Fizemos sim um passo a passo de instalação para rodar localmente ou em outro lugar o projeto, segue o passo passo [aqui](github/instalation.md)!
+
+#Tutorial
+
+Neste jogo você tem como objetivo remover todos os "corações" do seu oponente com suas cartas, cada uma delas tem sua habilidade, seus prós e contras. 
+
+Cartas
+🟥 Cartão vermelho
+Remove o coração vermelho do inimigo ❤️
+
+🟩 Cartão verde
+Remove o coração verde do inimigo 💚
+
+🟨 Cartão amarelo
+Remove o coração amarelo do inimigo 💛
+
+🟦 Cartão azul
+Remove qualquer coração inimigo
+
+🟪 Carta rosa
+Repete o que a última carta jogada do jogador faz
+
+⬜ Carta branca
+Remove uma carta aleatória do inimigo
+
+⬛ Carta preta
+Recebe uma carta aleatória
+
+As cartas serão distribuídas aleatoriamente para você e seu adversário.  
+Na sua vez você poderá escolher entre suas cartas, uma que melhor se encaixa na situação em que você se encontra na partida, depois de você jogar sua carta á a vez do seu oponente e por ai vai até acabarem as cartas ou os corações, se as cartas de ambos acabarem "a decidir", se você não tiver mais corações você perde, se for ao contrario você ganha o jogo.
+
+Ok?
+ 
