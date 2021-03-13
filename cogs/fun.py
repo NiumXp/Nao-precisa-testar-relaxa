@@ -131,9 +131,10 @@ class Fun(commands.Cog):
                 return await message.edit(content="Partida cancelada! Seu oponente demorou demais para jogar!", embed=None)
             else:
                 # Pega a ação da carta.
-                card_action = cards.get_by_name(card.name)
+                card_action = cards.get_by_name(card.name.capitalize())
                 # Executa a ação da carta.
-                player_result, enemy_result = await card_action.execute()
+                player_result, enemy_result = await card_action.execute(player,
+                                                                        enemy)
                 # Envia para o outro jogador a carta que o jogador
                 # escolheu e o resultado da ação da carta.
                 await message.edit(content=f"O seu oponente escolheu a carta {card.name} {card.value}! {enemy_result}", embed=None, delete_after=30)
