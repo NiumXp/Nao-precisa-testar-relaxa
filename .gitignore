@@ -1,0 +1,5 @@
+# Ignora qualquer pasta de pycache
+__pycache__/
+
+# Desenvolvimento
+.env
