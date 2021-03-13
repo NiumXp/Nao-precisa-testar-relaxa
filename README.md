@@ -43,4 +43,4 @@ Remove uma carta aleatória do inimigo
 Recebe uma carta aleatória
 
 As cartas serão distribuídas aleatoriamente para você e seu adversário.  
-Na sua vez você poderá escolher entre suas cartas, uma que melhor se encaixa na situação em que você se encontra na partida, depois de você jogar sua carta á a vez do seu oponente e por ai vai até acabarem as cartas ou os corações, se as cartas de ambos acabarem "a decidir", se você não tiver mais corações você perde, se for ao contrario você ganha o jogo.
+Na sua vez você poderá escolher entre suas cartas, uma que melhor se encaixa na situação em que você se encontra na partida, depois de você jogar sua carta á a vez do seu oponente após ele jogar é você novamente, vocês só podem jogar uma carta por vez, cada um em sua vez e por ai vai, se as cartas de ambos acabar "a decidir", agora se você não tiver mais corações significa que você perde e seu oponente venceu, se for ao contrario você ganha o jogo e ele perde e a partida acaba.
