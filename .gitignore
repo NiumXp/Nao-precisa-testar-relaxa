@@ -3,3 +3,6 @@ __pycache__/
 
 # Desenvolvimento
 .env
+
+# Ignora bibliotecas do virtual environment
+venv/
