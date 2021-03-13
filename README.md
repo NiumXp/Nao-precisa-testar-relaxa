@@ -16,21 +16,21 @@ Como utilizamos a api do discord, criamos um BOT já em produção para pular a 
 
 Fizemos sim um passo a passo de instalação para rodar localmente ou em outro lugar o projeto, segue o passo passo [aqui](github/instalation.md)!
 
-#Tutorial
+# Tutorial
 
 Neste jogo você tem como objetivo remover todos os "corações" do seu oponente com suas cartas, cada uma delas tem sua habilidade, seus prós e contras. 
 
-Cartas
-🟥 Cartão vermelho
+### Cartas
+🟥 Carta vermelho
 Remove o coração vermelho do inimigo ❤️
 
-🟩 Cartão verde
+🟩 Carta verde
 Remove o coração verde do inimigo 💚
 
-🟨 Cartão amarelo
+🟨 Carta amarelo
 Remove o coração amarelo do inimigo 💛
 
-🟦 Cartão azul
+🟦 Carta azul
 Remove qualquer coração inimigo
 
 🟪 Carta rosa
@@ -44,6 +44,3 @@ Recebe uma carta aleatória
 
 As cartas serão distribuídas aleatoriamente para você e seu adversário.  
 Na sua vez você poderá escolher entre suas cartas, uma que melhor se encaixa na situação em que você se encontra na partida, depois de você jogar sua carta á a vez do seu oponente e por ai vai até acabarem as cartas ou os corações, se as cartas de ambos acabarem "a decidir", se você não tiver mais corações você perde, se for ao contrario você ganha o jogo.
-
-Ok?
- 
