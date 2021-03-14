@@ -237,6 +237,14 @@ class Fun(commands.Cog):
         # Inicia a partida.
         await self.start_match(ctx.channel, ctx.author, target)
 
+    @commands.command(
+        name="jogo",
+        aliases=["game",]
+        usage="jogo"
+    )
+    async def game_command(self, ctx) -> None:
+        pass
+
 def setup(bot: t.Type[commands.Bot]) -> None:
     """
     Carrega a cog `Fun` em `bot`.
