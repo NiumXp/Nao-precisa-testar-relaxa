@@ -51,7 +51,8 @@ class Fun(commands.Cog):
             for card in set(player.cards):
                 await message.add_reaction(card.value)
 
-        task = self.bot.loop.create_task(abacate)
+        coroutine = abacate()
+        task = self.bot.loop.create_task(coroutine)
 
         # Função que será usada para verificar o evento de reação.
         def check(reaction, user):
