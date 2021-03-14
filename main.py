@@ -21,7 +21,8 @@ bot = CardBot(bot_prefix, help_command=None,
 @bot.command(
     name="ajuda",
     aliases=["help",],
-    usage="help (cmd)"
+    usage="help (cmd)",
+    brief="Veja sobre alguns comandos!"
 )
 async def help_command(ctx, *, cmd: str = None):
     """Mostra algumas informações sobre comandos e o BOT."""
@@ -32,7 +33,7 @@ async def help_command(ctx, *, cmd: str = None):
         commands = '\n'.join(commands)
 
         embed = discord.Embed(
-            description=f"{bot.description}```ini\nUtilize {bot_prefix}help `commando` para saber mais sobre um commando específico.\n\n[Comandos]\n{commands}\n\n[Legenda]\n<> argumento obrigatório\n() argumento opcional```",
+            description=f"{bot.description}**```ini\nUtilize {bot_prefix}help `commando` para saber mais sobre um commando específico.\n\n[Comandos]\n{commands}\n\n[Legenda]\n<> argumento obrigatório\n() argumento opcional```**",
             timestamp=ctx.message.created_at,
             color=ctx.author.color
         )
@@ -44,7 +45,7 @@ async def help_command(ctx, *, cmd: str = None):
         if command:
             command_embed = discord.Embed(
                 title=command.name,
-                description="{0.brief} {0.description} ```{0.help}```".format(command),
+                description=f"{command.brief} {command.description} ```{command.help.replace('prefix', ctx.prefix)}```",
                 color=ctx.author.color,
                 timestamp=ctx.message.created_at
             )

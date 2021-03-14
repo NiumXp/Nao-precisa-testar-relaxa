@@ -31,44 +31,32 @@ class RemoveHeartAction(CardAction):
 
 
 class Red(RemoveHeartAction):
-    """
-    Remove o coração vermelho do openente.
-    """
+    """Remove o coração vermelho do openente."""
     def get_heart(self, _):
         return Hearts.RED
 
 
 class Yellow(RemoveHeartAction):
-    """
-    Remove o coração amarelo do openente.
-    """
+    """Remove o coração amarelo do openente."""
     def get_heart(self, _):
         return Hearts.YELLOW
 
 
 class Green(RemoveHeartAction):
-    """
-    Rremove o coração verde do oponente.
-    """
+    """Remove o coração verde do oponente."""
     def get_heart(self, _):
         return Hearts.GREEN
 
 
 class Blue(RemoveHeartAction):
-    """
-    Remove qualquer coração do oponente.
-    """
+    """Remove qualquer coração do oponente."""
     def get_heart(self, enemy):
         # Retorna um coração aleatório do inimigo.
         return random.choice(enemy.lifes)
 
 
 class White(CardAction):
-    """
-    Remove uma carta aleatória do oponente.
-
-    Se o oponente não tiver nenhuma carta, esta carta é perdida.
-    """
+    """Remove uma carta aleatória do oponente (caso ele tenha uma)."""
     async def execute(self, player, enemy):
         items = len(enemy.cards)
         if items == 0:
@@ -81,9 +69,7 @@ class White(CardAction):
 
 
 class Black(CardAction):
-    """
-    Recebe uma carta aleatória (não é possível receber uma carta preta).
-    """
+    """Recebe uma carta aleatória (não é possível receber uma carta preta)."""
     async def execute(self, player, enemy):
         cards = list(Cards)
         cards.remove(Cards.BLACK)
@@ -95,25 +81,24 @@ class Black(CardAction):
 
 
 class Pink(CardAction):
-    """
-    Repetir o que a última carta jogada pelo jogador fez.
-
-    Por exemplo, se jogar uma carta vermelha e em seguida uma carta rosa, a carta rosa fará o que a carta vermelha fez.
-
-    Essa carta não funciona se for a primeira carta jogada.
-    """
+    """Repete a sua última carta jogada. Caso você tenha jogado um vermelho antes, a carta rosa repetirá o efeito da vermelha. Você perde essa carta caso jogue-a na primeira rodada."""
     async def execute(self, player, enemy):
         last_card = player.last_card
         if not last_card:
             return "Você perdeu uma carta rosa!", "O seu oponente perdeu uma carta rosa!"
+
         card = get_by_name(last_card.name)
-        return await card.execute(player, enemy)
+
+        player_message, enemy_message = await card.execute(player, enemy)
+
+        player_message = f"Por usar a carta PINK você desencadeou a carta {last_card.name} {last_card.value}!\n" + player_message
+        enemy_message = f"O seu inimigo usou a carta PINK e desencadeou a carta {last_card.name} {last_card.value}!\n" + enemy_message
+
+        return player_message, enemy_message
 
 
 class Orange(CardAction):
-    """
-    Recebe um coração aleatório!
-    """
+    """Recebe um coração aleatório!"""
     async def execute(self, player, enemy):
         hearts = list(Hearts)
         heart = random.choice(hearts)
