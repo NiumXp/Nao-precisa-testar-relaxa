@@ -32,13 +32,13 @@ class Player:
         # Cria o atributo de vida com todas os corações disponíveis. 
         self.lifes = list(utils.Hearts)
         # Cria o atributo de cartas só que com cartas aleatórias.
-        self.cards = self._random_cards()
+        self.cards = self._random_cards(5)
 
         # Cria o atributo da ultima carta jogada.
         self.last_card = None
 
     @staticmethod
-    def _random_cards(amount=8) -> list:
+    def _random_cards(amount) -> list:
         """Retorna uma lista com `amount` cartas aleatórias."""
         return random.choices(list(utils.Cards), k=amount)
 
