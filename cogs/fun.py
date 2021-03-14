@@ -142,6 +142,10 @@ class Fun(commands.Cog):
                 # resultado da sua ação.
                 await player.user.send(f"Você usou a carta {card.name} {card.value}! {player_result}", delete_after=30)
 
+                # Salva a carta que o jogador escolheu.
+                if card != Cards.PINK:
+                    player.last_card = card
+
         player_message = "Você perdeu!"
         enemy_message = "Você venceu!"
         if enemy.dead:
