@@ -18,87 +18,39 @@ improved_bot_prefix = when_mentioned_or(bot_prefix)
 bot = CardBot(improved_bot_prefix, help_command=None)
 
 # Comando de help
-@bot.command()
+@bot.command(
+    usage="help (cmd)"
+)
 async def help(ctx, *, cmd: str = None):
-  """ Mostra algumas informações sobre comandos e categorias. """
-  
-  if not cmd:
-      embed = discord.Embed(
-      title="Todos comandos e categorias",
-      description=f"```ini\nUtilize {bot_prefix}help `commando` ou {bot_prefix}help `categoria` para saber mais sobre um commando ou categoria específica\n[Exemplos]\n[1] Categoria: {bot_prefix}help fun\n[2] Commando: {bot_prefix}help desafiar```",
-      timestamp=ctx.message.created_at,
-      color=ctx.author.color
-      )
+    """Mostra algumas informações sobre comandos e o BOT."""
 
-      for cog in bot.cogs:
-          cog = bot.get_cog(cog)
-          commands = [c.qualified_name for c in cog.get_commands() if not c.hidden]
-          subcommands = []
-          for c in cog.get_commands():
-              try:
-                for sb in c.commands:
-                  if not c.hidden:
-                    subcommands.append(sb.qualified_name)
-              except AttributeError:
-                pass
+    if not cmd:
+        commands = enumerate(c for c in bot.walk_commands())
+        commands = [f"[{i}] {bot_prefix}{c.usage}" for i, c in commands]
+        commands = '\n'.join(commands)
 
-          if commands:
-            text = f"`Comandos:` {', '.join(commands)}" 
-            if subcommands:
-              text += f"\n`Subcomandos:` {', '.join(subcommands)}"
-            embed.add_field(
-            name=f"__{cog.qualified_name}__",
-            value=text,
-            inline=False
-            )
-
-      cmds = []
-      for y in bot.walk_commands():
-          if not y.cog_name and not y.hidden:
-              cmds.append(y.name)
-      embed.add_field(
-      name='__Comandos Não-Categorizados__', 
-      value=f"`Comandos:` {', '.join(cmds)}", 
-      inline=False)
-      await ctx.send(embed=embed)
-
-  else:
-    # Checks if it's a command
-    if command := bot.get_command(cmd.lower()):
-      command_embed = discord.Embed(title=f"__Comando:__ {command.name}", description=f"__**Descrição:**__\n```{command.help}```", color=ctx.author.color, timestamp=ctx.message.created_at)
-      return await ctx.send(embed=command_embed)
-
-    for cog in bot.cogs:
-      if str(cog).lower() == str(cmd).lower():
-          cog = bot.get_cog(cog)
-          cog_embed = discord.Embed(title=f"__Categoria:__ {cog.qualified_name}",
-          color=ctx.author.color, timestamp=ctx.message.created_at)
-          commands = []
-          subcommands = []
-          for c in cog.get_commands():
-              if not c.hidden:
-                  commands.append(c.name)
-              try:
-                for sb in c.commands:
-                  if not c.hidden:
-                    subcommands.append(sb.qualified_name)
-              except AttributeError:
-                pass
-
-          cog_embed.description = f"__**Descrição:**__\n```{cog.description}```\n`Comandos:` {', '.join(commands)}\n\n`Subcomando:` {', '.join(subcommands)}"
-
-          return await ctx.send(embed=cog_embed)
-
-    # Otherwise, it's an invalid parameter (Not found)
+        embed = discord.Embed(
+            description=f"{bot.description}```ini\nUtilize {bot_prefix}help `commando` para saber mais sobre um commando específico.\n\n[Comandos]\n{commands}\n\n[Legenda]\n- <> argumento obrigatório\n- () argumento opcional```",
+            timestamp=ctx.message.created_at,
+            color=ctx.author.color
+        )
+        return await ctx.send(embed=embed)
     else:
-      await ctx.send(f"**Parâmetro inválido! `{cmd}` não é nem um comando, nem uma categoria!**")
+        # Checks if it's a command
+        cmd = cmd.lower()
+        command = bot.get_command(cmd)
+        if command:
+            command_embed = discord.Embed(
+                title=command.name,
+                description="{0.brief} {0.description} ```{0.help}```".format(command),
+                color=ctx.author.color,
+                timestamp=ctx.message.created_at
+            )
+            return await ctx.send(embed=command_embed)
 
-
-
-
-
-
-
+        # Otherwise, it's an invalid parameter (Not found)
+        else:
+            await ctx.send(f"**Não encontrei o comando `{cmd}`!**")
 
 # Percorre o diretório `cogs` para carregar todos os comandos do BOT.
 for dirpath, _, filenames in os.walk("cogs"):
