@@ -201,6 +201,11 @@ class Fun(commands.Cog):
             # Se for, ele não deixa a partida começar.
             return await ctx.send("Você não pode se desafiar.")
 
+        # Verifica se o oponente é um BOT.
+        if target.bot:
+            # Se for, ele não deixa a partida começar.
+            return await ctx.send("Você não pode desafiar um BOT!")
+
         # Pega a confirmação do oponente para começar a partida.
         result = await self.bot.get_emoji_confirmation(ctx.channel, target.id,
             f"{target.mention}, {ctx.author.mention} te desafiou, bora?")
