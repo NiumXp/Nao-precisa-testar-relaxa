@@ -96,12 +96,11 @@ class Black(CardAction):
 
 class Pink(CardAction):
     """
-    Faz o usuário repetir o que a última carta jogada fez.
+    Repetir o que a última carta jogada pelo jogador fez.
 
-    Por exemplo, se o jogador jogou uma carta vermelha e em seguida
-    jogou uma carta rosa, a carta rosa fará o que a carta vermelha fez.
+    Por exemplo, se jogar uma carta vermelha e em seguida uma carta rosa, a carta rosa fará o que a carta vermelha fez.
 
-    Se for a carta rosa for a primeira carta jogada, ela será perdida.
+    Essa carta não funciona se for a primeira carta jogada.
     """
     async def execute(self, player, enemy):
         last_card = player.last_card
