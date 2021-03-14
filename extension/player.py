@@ -53,7 +53,7 @@ class Player:
         cards = sorted(self.cards, key=key)
         # Transforma a lista de cartas em uma string com todas elas
         # ordenadas e juntas.
-        cards = ''.join(l.value for l in cards)
+        cards = ' '.join(l.value for l in cards)
 
         # Ordena todos os corações do jogador.
         hearts = sorted(self.lifes, key=key)
@@ -61,12 +61,17 @@ class Player:
         # ordenadas e juntas.
         hearts = ' '.join(l.value for l in self.lifes)
 
-        # Retorna um Embed com os fileds dos corações e cartas.
+        # Ultima carta jogada.
+        last_card = self.last_card.value if self.last_card else "Nenhuma"
+
+        # Retorna um Embed com os fileds dos corações, última carta
+        # jogada e cartas.
         return discord.Embed(color=0xFFA500,
         ).set_thumbnail(url=self.user.avatar_url
-        ).add_field(name="Corações", value=hearts, inline=False
+        ).add_field(name="Corações", value=hearts, inline=True
+        ).add_field(name="Última carta", value=last_card
         ).add_field(name="Cartas " + utils.emoji("Cards"),
-                    value=cards or "Nenhuma")
+                    value=cards or "Nenhuma", inline=False)
 
     @property
     def dead(self) -> bool:
