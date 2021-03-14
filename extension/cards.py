@@ -1,7 +1,7 @@
 import random
 import typing as t
 
-from .utils import Hearts
+from .utils import Hearts, Cards
 
 
 class CardAction:
@@ -44,10 +44,51 @@ class Blue(RemoveHeartAction):
         return random.choice(enemy.lifes)
 
 
-all = [Red, Yellow, Green, Blue]
+class White(CardAction):
+    async def execute(self, player, enemy):
+        items = len(enemy.cards)
+        if items == 0:
+            return "O seu inimigo não tinha cartas para serem removidas!", "O seu oponente tentou tirar uma carta sua!"
+
+        random_index = random.randrange(items)
+        card = enemy.cards.pop(random_index)
+
+        return f"Você removeu uma carta {card.name} {card.value} do seu oponente!", f"O seu oponente removeu uma carta {card.name} {card.value} sua!"
+
+
+class Black(CardAction):
+    async def execute(self, player, enemy):
+        cards = list(Cards)
+        cards.remove(Cards.BLACK)
+
+        card = random.choice(cards)
+        player.cards.append(card)
+
+        return f"Você recebeu uma carta {card.name} {card.value}!", f"O seu oponente recebeu uma carta {card.name} {card.value}!"
+
+
+class Pink(CardAction):
+    async def execute(self, player, enemy):
+        last_card = player.last_card
+        if not last_card:
+            return "Você perdeu uma carta rosa!", "O seu oponente perdeu uma carta rosa!"
+        card = get_by_name(last_card.name)
+        return await card.execute(player, enemy)
+
+
+class Orange(CardAction):
+    async def execute(self, player, enemy):
+        hearts = list(Hearts)
+        heart = random.choice(hearts)
+        player.lifes.append(heart)
+        return f"Você recebeu um coração {heart.value}!", f"O seu oponente recebeu um coração {heart.value}!"
+
+
+all = [Red, Yellow, Green, Blue, White, Black, Pink, Orange]
 
 
 def get_by_name(name: str):
+    name = name.capitalize()
     # Percorre todas as CardAction registradas.
     for card in all:
         # Se a classe tiver o mesmo que nome que `name`

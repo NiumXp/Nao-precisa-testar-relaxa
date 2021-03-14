@@ -21,26 +21,29 @@ Fizemos sim um passo a passo de instalação para rodar localmente ou em outro l
 Neste jogo você tem como objetivo remover todos os "corações" do seu oponente com suas cartas, cada uma delas tem sua habilidade, seus prós e contras. 
 
 ### Cartas
-🟥 Carta vermelho
+#### 🟥 Carta vermelho
 Remove o coração vermelho do inimigo ❤️
 
-🟩 Carta verde
+#### 🟩 Carta verde
 Remove o coração verde do inimigo 💚
 
-🟨 Carta amarelo
+#### 🟨 Carta amarelo
 Remove o coração amarelo do inimigo 💛
 
-🟦 Carta azul
+#### 🟦 Carta azul
 Remove qualquer coração inimigo
 
-🟪 Carta rosa
+#### 🟪 Carta rosa
 Repete o que a última carta jogada do jogador faz
 
-⬜ Carta branca
+#### ⬜ Carta branca
 Remove uma carta aleatória do inimigo
 
-⬛ Carta preta
+#### ⬛ Carta preta
 Recebe uma carta aleatória
+
+#### 🟧 Carta laranja
+Recebe um coração aleatório
 
 As cartas serão distribuídas aleatoriamente para você e seu adversário.  
 Na sua vez você poderá escolher entre suas cartas, uma que melhor se encaixa na situação em que você se encontra na partida, depois de você jogar sua carta á a vez do seu oponente após ele jogar é você novamente, vocês só podem jogar uma carta por vez, cada um em sua vez e por ai vai, se as cartas de ambos acabar "a decidir", agora se você não tiver mais corações significa que você perde e seu oponente venceu, se for ao contrario você ganha o jogo e ele perde e a partida acaba.

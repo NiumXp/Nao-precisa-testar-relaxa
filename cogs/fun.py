@@ -142,6 +142,10 @@ class Fun(commands.Cog):
                 # resultado da sua ação.
                 await player.user.send(f"Você usou a carta {card.name} {card.value}! {player_result}", delete_after=30)
 
+                # Salva a carta que o jogador escolheu.
+                if card != Cards.PINK:
+                    player.last_card = card
+
         player_message = "Você perdeu!"
         enemy_message = "Você venceu!"
         if enemy.dead:
@@ -192,6 +196,16 @@ class Fun(commands.Cog):
         O BOT precisa ter permissão para reagir em mensagens e deletar
         mensagens.
         """
+        # Verifica se o oponente é o próprio jogador.
+        if target == ctx.author:
+            # Se for, ele não deixa a partida começar.
+            return await ctx.send("Você não pode se desafiar.")
+
+        # Verifica se o oponente é um BOT.
+        if target.bot:
+            # Se for, ele não deixa a partida começar.
+            return await ctx.send("Você não pode desafiar um BOT!")
+
         # Pega a confirmação do oponente para começar a partida.
         result = await self.bot.get_emoji_confirmation(ctx.channel, target.id,
             f"{target.mention}, {ctx.author.mention} te desafiou, bora?")

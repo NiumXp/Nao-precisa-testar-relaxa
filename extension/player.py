@@ -23,6 +23,8 @@ class Player:
         Vidas do jogador.
     cards : list[utils.Cards]
         Cartas do jogador.
+    last_card : utils.Cards
+        Última carta que o jogador jogou.
     """
     def __init__(self, user: discord.User):
         self.user = user
@@ -32,10 +34,13 @@ class Player:
         # Cria o atributo de cartas só que com cartas aleatórias.
         self.cards = self._random_cards()
 
+        # Cria o atributo da ultima carta jogada.
+        self.last_card = None
+
     @staticmethod
     def _random_cards(amount=8) -> list:
         """Retorna uma lista com `amount` cartas aleatórias."""
-        return random.choices(list(utils.Cards), k=8)
+        return random.choices(list(utils.Cards), k=amount)
 
     def embed(self) -> discord.Embed:
         """
@@ -60,7 +65,8 @@ class Player:
         return discord.Embed(color=0xFFA500,
         ).set_thumbnail(url=self.user.avatar_url
         ).add_field(name="Corações", value=hearts, inline=False
-        ).add_field(name="Cartas " + utils.emoji("Cards"), value=cards)
+        ).add_field(name="Cartas " + utils.emoji("Cards"),
+                    value=cards or "Nenhuma")
 
     @property
     def dead(self) -> bool:
