@@ -69,7 +69,10 @@ class Black(CardAction):
 
 class Pink(CardAction):
     async def execute(self, player, enemy):
-        card = get_by_name(player.last_card.name)
+        last_card = player.last_card
+        if not last_card:
+            return "Você perdeu uma carta rosa!", "O seu oponente perdeu uma carta rosa!"
+        card = get_by_name(last_card.name)
         return await card.execute(player, enemy)
 
 
