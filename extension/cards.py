@@ -10,13 +10,19 @@ class CardAction:
 
 
 class RemoveHeartAction(CardAction):
+    """
+    Remove o coração retornado de `get_heart` do oponente.
+    """
     def get_heart(self) -> Hearts:
         raise NotImplementedError()
 
     async def execute(self, player, enemy) -> t.Tuple[str, str]:
+        # Gera o coração para ser removido.
         heart = self.get_heart(enemy)
 
+        # Verifica se o oponente tem o coração gerado.
         if heart in enemy.lifes:
+            # Remove o coração do oponente.
             enemy.lifes.remove(heart)
         else:
             return f"Você tentou remover um coração {heart.value} do seu oponente!", f"O seu oponente tentou retirar um coração {heart.value} seu!"
@@ -53,6 +59,7 @@ class Blue(RemoveHeartAction):
     O usuário remove qualquer coração do seu oponente.
     """
     def get_heart(self, enemy):
+        # Retorna um coração aleatório do inimigo.
         return random.choice(enemy.lifes)
 
 
@@ -116,10 +123,26 @@ class Orange(CardAction):
         return f"Você recebeu um coração {heart.value}!", f"O seu oponente recebeu um coração {heart.value}!"
 
 
+# Todas as cartas.
 all = [Red, Yellow, Green, Blue, White, Black, Pink, Orange]
 
 
 def get_by_name(name: str):
+    """
+    Retorna a ação da carta que tiver o nome `name`. Retorna `None` se
+    não existir.
+
+    Parâmetros
+    ----------
+    name : str
+        Nome da carta.
+
+    Retorno
+    -------
+    typing.Type[CardAction]
+        Ação da carta, pode ser `None`.
+    """
+    # Capitaliza `name`.
     name = name.capitalize()
     # Percorre todas as CardAction registradas.
     for card in all:
