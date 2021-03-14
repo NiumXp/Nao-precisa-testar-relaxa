@@ -243,7 +243,21 @@ class Fun(commands.Cog):
         usage="jogo"
     )
     async def game_command(self, ctx) -> None:
-        pass
+        msg = "O jogo é jogador contra jogador, cada um recebe 3 corações, vermelho, amarelo e verde, e começam com 5 cartas aleatórias.\n\n"
+
+        cards_ = []
+        for card in cards.all:
+            e = Cards[card.__name__.upper()]
+            cards_.append(f"{e.value} - **{e.name.capitalize()}**{card.__doc__}")
+        cards_ = '\n'.join(cards_)
+
+        embed = discord.Embed(color=0x8257e6, description=msg)
+        embed.add_field(name="Cartas", value=cards_)
+
+        msg = "Se as suas vidas se esgotarem, você perde e o seu oponente ganha!\n\n"
+        embed.add_field(name="Extras", value=msg, inline=False)
+
+        await ctx.send(embed=embed)
 
 def setup(bot: t.Type[commands.Bot]) -> None:
     """
