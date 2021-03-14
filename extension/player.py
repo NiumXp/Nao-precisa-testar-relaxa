@@ -65,7 +65,8 @@ class Player:
         return discord.Embed(color=0xFFA500,
         ).set_thumbnail(url=self.user.avatar_url
         ).add_field(name="Corações", value=hearts, inline=False
-        ).add_field(name="Cartas " + utils.emoji("Cards"), value=cards)
+        ).add_field(name="Cartas " + utils.emoji("Cards"),
+                    value=cards or "Nenhuma")
 
     @property
     def dead(self) -> bool:
