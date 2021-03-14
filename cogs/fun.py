@@ -196,6 +196,11 @@ class Fun(commands.Cog):
         O BOT precisa ter permissão para reagir em mensagens e deletar
         mensagens.
         """
+        # Verifica se o oponente é o próprio jogador.
+        if target == ctx.author:
+            # Se for, ele não deixa a partida começar.
+            return await ctx.send("Você não pode se desafiar.")
+
         # Pega a confirmação do oponente para começar a partida.
         result = await self.bot.get_emoji_confirmation(ctx.channel, target.id,
             f"{target.mention}, {ctx.author.mention} te desafiou, bora?")
