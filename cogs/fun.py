@@ -7,6 +7,9 @@ import typing as t
 from extension import Player, cards
 from extension.utils import Hearts, Cards
 
+WIN_MESSAGE = "Parabéns! Você venceu! 🎉🏆"
+LOST_MESSAGE = "Eita, você perdeu a partida... 😥"
+
 
 class Fun(commands.Cog):
     """
@@ -102,6 +105,9 @@ class Fun(commands.Cog):
         player = Player(player_one)
         enemy = Player(player_two)
 
+        await channel.send("Verifique se a opção 'Mostrar reações de emojis em mensagens' de 'Texto e imagens' nas configurações está habilidade para você poder jogar! O jogo começa em 10 segundos!", delete_after=15)
+        await asyncio.sleep(12)
+
         # Avisa que a partida começou.
         await channel.send("Partida iniciada no privado de vocês, deem uma olhada!")
 
@@ -137,10 +143,15 @@ class Fun(commands.Cog):
                                                                         enemy)
                 # Envia para o outro jogador a carta que o jogador
                 # escolheu e o resultado da ação da carta.
-                await message.edit(content=f"O seu oponente escolheu a carta {card.name} {card.value}! {enemy_result}", embed=None, delete_after=30)
+                embed = player.embed()
+                embed.clear_fields()
+
+                embed.description = f"**O seu oponente escolheu a carta {card.name} {card.value}!\n{enemy_result}**"
+                await message.edit(content=None, embed=embed, delete_after=30)
                 # Envia para o jogador a carta que ele selecionou e o
                 # resultado da sua ação.
-                await player.user.send(f"Você usou a carta {card.name} {card.value}! {player_result}", delete_after=30)
+                embed.description = f"**Você usou a carta {card.name} {card.value}!\n{player_result}**"
+                await player.user.send(embed=embed, delete_after=30)
 
                 # Salva a carta que o jogador escolheu.
                 if card != Cards.PINK:
@@ -148,11 +159,11 @@ class Fun(commands.Cog):
 
                 await asyncio.sleep(3)
 
-        player_message = "Você perdeu!"
-        enemy_message = "Você venceu!"
+        player_message = LOST_MESSAGE
+        enemy_message = WIN_MESSAGE
         if enemy.dead:
-            player_message = "Você venceu!"
-            enemy_message = "Você perdeu!"
+            player_message = WIN_MESSAGE
+            enemy_message = LOST_MESSAGE
 
         try:
             await player.user.send(player_message, delete_after=30)
