@@ -40,7 +40,7 @@ class Player:
     @staticmethod
     def _random_cards(amount=8) -> list:
         """Retorna uma lista com `amount` cartas aleatórias."""
-        return random.choices(list(utils.Cards), k=8)
+        return random.choices(list(utils.Cards), k=amount)
 
     def embed(self) -> discord.Embed:
         """
