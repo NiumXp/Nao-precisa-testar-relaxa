@@ -14,8 +14,8 @@ from extension import CardBot
 # Instânceia a classe do BOT e passa o prefixo declarado na variável de
 # ambiente.
 bot_prefix = os.environ["BOT_PREFIX"]
-improved_bot_prefix = when_mentioned_or(bot_prefix)
-bot = CardBot(improved_bot_prefix, help_command=None)
+bot = CardBot(bot_prefix, help_command=None,
+              command_prefix=when_mentioned_or(bot_prefix))
 
 # Comando de help
 @bot.command(

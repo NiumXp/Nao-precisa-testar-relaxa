@@ -15,12 +15,19 @@ class CardBot(Bot):
     CardBot é um BOT :D
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, prefix, *args, **kwargs):
         super().__init__(*args, **kwargs, description=self.__doc__)
+        self.normal_prefix = prefix
 
     async def on_ready(self):
         """Imprime `I'm ready!` no terminal."""
         print("I'm ready!")
+
+    async def on_message(self, message):
+        if message.content in [f"<@{self.user.id}>", f"<@!{self.user.id}>"]:
+            msg = f"Olá, {message.author.mention}! Utilize o comando `{self.normal_prefix}ajuda` se precisar de ajuda!"
+            return await message.channel.send(msg)
+        return await self.process_commands(message)
 
     async def get_emoji_confirmation(self, channel: discord.TextChannel,
                                      user_id: int, message: str, *,
