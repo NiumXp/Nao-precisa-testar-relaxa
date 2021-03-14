@@ -42,5 +42,8 @@ Remove uma carta aleatória do inimigo
 #### ⬛ Carta preta
 Recebe uma carta aleatória
 
+#### 🟧 Carta laranja
+Recebe um coração aleatório
+
 As cartas serão distribuídas aleatoriamente para você e seu adversário.  
 Na sua vez você poderá escolher entre suas cartas, uma que melhor se encaixa na situação em que você se encontra na partida, depois de você jogar sua carta á a vez do seu oponente após ele jogar é você novamente, vocês só podem jogar uma carta por vez, cada um em sua vez e por ai vai, se as cartas de ambos acabar "a decidir", agora se você não tiver mais corações significa que você perde e seu oponente venceu, se for ao contrario você ganha o jogo e ele perde e a partida acaba.
