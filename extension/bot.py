@@ -11,6 +11,13 @@ CROSS_EMOJI = utils.emoji("CROSS")
 
 
 class CardBot(Bot):
+    """
+    CardBot é um BOT :D
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs, description=self.__doc__)
+
     async def on_ready(self):
         """Imprime `I'm ready!` no terminal."""
         print("I'm ready!")
