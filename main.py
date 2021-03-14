@@ -15,9 +15,7 @@ from extension import CardBot
 # ambiente.
 bot_prefix = os.environ["BOT_PREFIX"]
 improved_bot_prefix = when_mentioned_or(bot_prefix)
-bot = CardBot(improved_bot_prefix)
-
-bot.remove_command('help')
+bot = CardBot(improved_bot_prefix, help=None)
 
 # Comando de help
 @bot.command()
