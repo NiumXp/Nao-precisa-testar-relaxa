@@ -70,8 +70,7 @@ class Player:
         ).set_thumbnail(url=self.user.avatar_url
         ).add_field(name="Corações", value=hearts, inline=True
         ).add_field(name="Última carta", value=last_card
-        ).add_field(name="Cartas " + utils.emoji("Cards"),
-                    value=cards or "Nenhuma", inline=False)
+        ).add_field(name="Cartas", value=cards or "Nenhuma", inline=False)
 
     @property
     def dead(self) -> bool:
