@@ -76,7 +76,15 @@ class Pink(CardAction):
         return await card.execute(player, enemy)
 
 
-all = [Red, Yellow, Green, Blue, White, Black, Pink]
+class Orange(CardAction):
+    async def execute(self, player, enemy):
+        hearts = list(Hearts)
+        heart = random.choice(hearts)
+        player.lifes.append(heart)
+        return f"Você recebeu um coração {heart.value}!", f"O seu oponente recebeu um coração {heart.value}!"
+
+
+all = [Red, Yellow, Green, Blue, White, Black, Pink, Orange]
 
 
 def get_by_name(name: str):
