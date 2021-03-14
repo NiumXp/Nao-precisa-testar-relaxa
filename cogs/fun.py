@@ -68,7 +68,8 @@ class Fun(commands.Cog):
             # Verifica se o jogador tem a carta e se é o jogador correto
             # que reagiu.
             return card in player.cards and \
-                user == player.user
+                user == player.user and \
+                    message.id == reaction.message.id
 
         try:
             # Espera por uma reação em até 60 segundos.
@@ -81,8 +82,8 @@ class Fun(commands.Cog):
         finally:
             task.cancel()
 
-        # Deleta a mensagem dizendo que é a vez do jogador.
-        await message.delete()
+            # Deleta a mensagem dizendo que é a vez do jogador.
+            await message.delete()
 
         # Pega o objeto da carta.
         card = Cards(str(reaction.emoji))
@@ -111,7 +112,7 @@ class Fun(commands.Cog):
         player = Player(player_one)
         enemy = Player(player_two)
 
-        await channel.send("Verifique se a opção 'Mostrar reações de emojis em mensagens' de 'Texto e imagens' nas configurações está habilidade para você poder jogar! O jogo começa em 10 segundos!", delete_after=15)
+        await channel.send("Verifique se a opção **`Mostrar reações de emojis em mensagens`** de **`Texto e imagens`** nas configurações está habilidade para você poder jogar! O jogo começa em 10 segundos!", delete_after=15)
         await asyncio.sleep(12)
 
         # Avisa que a partida começou.
@@ -129,7 +130,8 @@ class Fun(commands.Cog):
                 await player.user.send(
                     embed=discord.Embed(
                         color=0xFFA500,
-                        description=f"Você recebeu 3 cartas {rcards}")
+                        description=f"Você recebeu 3 cartas {rcards}"
+                        ), delete_after=30
                     )
 
             if len(enemy.cards) == 0:
@@ -139,7 +141,8 @@ class Fun(commands.Cog):
                 await enemy.user.send(
                     embed=discord.Embed(
                         color=0xFFA500,
-                        description=f"Você recebeu 3 cartas {rcards}")
+                        description=f"Você recebeu 3 cartas {rcards}"
+                        ), delete_after=30
                     )
 
             # Envia uma mensagem de aguardo para o oponente.
@@ -160,6 +163,7 @@ class Fun(commands.Cog):
             # Se o jogador não estiver escolhido uma carta
             if not card:
                 # diz para o seu oponente que a partida foi cancelada.
+                await player.user.send("Partida cancelada! Você demorou demais para jogar!")
                 return await message.edit(content="Partida cancelada! Seu oponente demorou demais para jogar!", embed=None)
             else:
                 # Pega a ação da carta.
@@ -172,11 +176,11 @@ class Fun(commands.Cog):
                 embed = player.embed()
                 embed.clear_fields()
 
-                embed.description = f"**O seu oponente escolheu a carta {card.name} {card.value}!\n{enemy_result}**"
+                embed.description = f"{card.value}\n\n**O seu oponente escolheu a carta {card.name}!\n\n{enemy_result}**"
                 await message.edit(content=None, embed=embed, delete_after=30)
                 # Envia para o jogador a carta que ele selecionou e o
                 # resultado da sua ação.
-                embed.description = f"**Você usou a carta {card.name} {card.value}!\n{player_result}**"
+                embed.description = f"{card.value}\n\n**Você usou a carta {card.name}!\n\n{player_result}**"
                 await player.user.send(embed=embed, delete_after=30)
 
                 # Salva a carta que o jogador escolheu.
@@ -279,22 +283,23 @@ class Fun(commands.Cog):
     @commands.command(
         name="jogo",
         aliases=["game",],
-        usage="jogo"
+        usage="jogo",
+        brief="Veja sobre o jogo e suas regras!"
     )
     async def game_command(self, ctx) -> None:
-        msg = "O jogo é jogador contra jogador, cada um recebe 3 corações, vermelho, amarelo e verde, e começam com 5 cartas aleatórias.\n\n"
+        """
+        Regras sobre o jogo e como funciona!
+        """
+        msg = "O jogo é composto por 2 jogadores, cada jogador recebe 3 corações sendo eles vermelho, amarelo e verde, cada jogador começa com 5 cartas aleatórias.\n\nSe as suas vidas se esgotarem, você perde e o seu oponente ganha!\n\nSe as suas cartas acabarem você recebe mais 3 cartas aleatórias no próximo turno."
 
         cards_ = []
         for card in cards.all:
             e = Cards[card.__name__.upper()]
-            cards_.append(f"{e.value} - **{e.name.capitalize()}**{card.__doc__}")
-        cards_ = '\n'.join(cards_)
+            cards_.append(f"{e.value} {e.name.capitalize()} **-** {card.__doc__}")
+        cards_ = '\n\n'.join(cards_)
 
         embed = discord.Embed(color=0x8257e6, description=msg)
         embed.add_field(name="Cartas", value=cards_)
-
-        msg = "Se as suas vidas se esgotarem, você perde e o seu oponente ganha!\n\n"
-        embed.add_field(name="Extras", value=msg, inline=False)
 
         await ctx.send(embed=embed)
 

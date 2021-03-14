@@ -1,4 +1,4 @@
-from discord.ext.commands import Bot
+from discord.ext.commands import Bot, errors
 import discord
 
 import asyncio
@@ -32,6 +32,15 @@ class CardBot(Bot):
             msg = f"Olá, {message.author.mention}! Utilize o comando `{self.normal_prefix}ajuda` se precisar de ajuda!"
             return await message.channel.send(msg)
         return await self.process_commands(message)
+
+    async def on_command_error(self, ctx, error):
+        base = f"Digite `{ctx.prefix}ajuda {ctx.invoked_with}` para ver como utilizar este comando."
+        if isinstance(error, errors.MissingRequiredArgument):
+            await ctx.send(f"{ctx.author.mention}, você usou o comando de forma errada! {base}")
+        elif isinstance(error, errors.BotMissingPermissions):
+            await ctx.send("Eu não tenho permissão para executar este comando! " + base)
+        else:
+            raise error
 
     async def get_emoji_confirmation(self, channel: discord.TextChannel,
                                      user_id: int, message: str, *,
@@ -92,6 +101,13 @@ class CardBot(Bot):
         except asyncio.TimeoutError:
             # Retorna None pois o usuário demorou demais para reagir.
             return None
+        finally:
+            try:
+                # Deleta a mensagem de confirmação.
+                await message.delete()
+            except discord.NotFound:
+                # A mensagem pode ter sido apagada.
+                pass
 
         # Retorna dizendo se o emoji reagido é `CHECK_MARK_EMOJI`.
         return str(reaction.emoji) == CHECK_MARK_EMOJI
