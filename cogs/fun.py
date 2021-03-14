@@ -239,7 +239,7 @@ class Fun(commands.Cog):
 
     @commands.command(
         name="jogo",
-        aliases=["game",]
+        aliases=["game",],
         usage="jogo"
     )
     async def game_command(self, ctx) -> None:
