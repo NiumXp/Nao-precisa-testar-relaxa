@@ -12,7 +12,11 @@ CROSS_EMOJI = utils.emoji("CROSS")
 
 class CardBot(Bot):
     """
-    CardBot é um BOT :D
+    CardBot é um BOT que implementa um jogo simples como o jogo da velha
+    e estratégico como UNO.
+
+    Para jogar basta usar o comando `desafiar` e para saber as regras do
+    jogo basta usar o comando `jogo`.
     """
 
     def __init__(self, prefix, *args, **kwargs):
