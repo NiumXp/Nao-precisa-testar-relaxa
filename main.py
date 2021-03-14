@@ -19,9 +19,11 @@ bot = CardBot(improved_bot_prefix, help_command=None)
 
 # Comando de help
 @bot.command(
+    name="ajuda",
+    aliases=["help",],
     usage="help (cmd)"
 )
-async def help(ctx, *, cmd: str = None):
+async def help_command(ctx, *, cmd: str = None):
     """Mostra algumas informações sobre comandos e o BOT."""
 
     if not cmd:
