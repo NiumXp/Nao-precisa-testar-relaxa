@@ -10,13 +10,19 @@ class CardAction:
 
 
 class RemoveHeartAction(CardAction):
+    """
+    Remove o coração retornado de `get_heart` do oponente.
+    """
     def get_heart(self) -> Hearts:
         raise NotImplementedError()
 
     async def execute(self, player, enemy) -> t.Tuple[str, str]:
+        # Gera o coração para ser removido.
         heart = self.get_heart(enemy)
 
+        # Verifica se o oponente tem o coração gerado.
         if heart in enemy.lifes:
+            # Remove o coração do oponente.
             enemy.lifes.remove(heart)
         else:
             return f"Você tentou remover um coração {heart.value} do seu oponente!", f"O seu oponente tentou retirar um coração {heart.value} seu!"
@@ -25,26 +31,44 @@ class RemoveHeartAction(CardAction):
 
 
 class Red(RemoveHeartAction):
+    """
+    Remove o coração vermelho do openente.
+    """
     def get_heart(self, _):
         return Hearts.RED
 
 
 class Yellow(RemoveHeartAction):
+    """
+    Remove o coração amarelo do openente.
+    """
     def get_heart(self, _):
         return Hearts.YELLOW
 
 
 class Green(RemoveHeartAction):
+    """
+    Rremove o coração verde do oponente.
+    """
     def get_heart(self, _):
         return Hearts.GREEN
 
 
 class Blue(RemoveHeartAction):
+    """
+    Remove qualquer coração do oponente.
+    """
     def get_heart(self, enemy):
+        # Retorna um coração aleatório do inimigo.
         return random.choice(enemy.lifes)
 
 
 class White(CardAction):
+    """
+    Remove uma carta aleatória do oponente.
+
+    Se o oponente não tiver nenhuma carta, esta carta é perdida.
+    """
     async def execute(self, player, enemy):
         items = len(enemy.cards)
         if items == 0:
@@ -57,6 +81,9 @@ class White(CardAction):
 
 
 class Black(CardAction):
+    """
+    Recebe uma carta aleatória (não é possível receber uma carta preta).
+    """
     async def execute(self, player, enemy):
         cards = list(Cards)
         cards.remove(Cards.BLACK)
@@ -68,6 +95,13 @@ class Black(CardAction):
 
 
 class Pink(CardAction):
+    """
+    Repetir o que a última carta jogada pelo jogador fez.
+
+    Por exemplo, se jogar uma carta vermelha e em seguida uma carta rosa, a carta rosa fará o que a carta vermelha fez.
+
+    Essa carta não funciona se for a primeira carta jogada.
+    """
     async def execute(self, player, enemy):
         last_card = player.last_card
         if not last_card:
@@ -77,6 +111,9 @@ class Pink(CardAction):
 
 
 class Orange(CardAction):
+    """
+    Recebe um coração aleatório!
+    """
     async def execute(self, player, enemy):
         hearts = list(Hearts)
         heart = random.choice(hearts)
@@ -84,10 +121,26 @@ class Orange(CardAction):
         return f"Você recebeu um coração {heart.value}!", f"O seu oponente recebeu um coração {heart.value}!"
 
 
+# Todas as cartas.
 all = [Red, Yellow, Green, Blue, White, Black, Pink, Orange]
 
 
 def get_by_name(name: str):
+    """
+    Retorna a ação da carta que tiver o nome `name`. Retorna `None` se
+    não existir.
+
+    Parâmetros
+    ----------
+    name : str
+        Nome da carta.
+
+    Retorno
+    -------
+    typing.Type[CardAction]
+        Ação da carta, pode ser `None`.
+    """
+    # Capitaliza `name`.
     name = name.capitalize()
     # Percorre todas as CardAction registradas.
     for card in all:

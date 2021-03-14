@@ -7,6 +7,9 @@ import typing as t
 from extension import Player, cards
 from extension.utils import Hearts, Cards
 
+WIN_MESSAGE = "Parabéns! Você venceu! 🎉🏆"
+LOST_MESSAGE = "Eita, você perdeu a partida... 😥"
+
 
 class Fun(commands.Cog):
     """
@@ -44,8 +47,12 @@ class Fun(commands.Cog):
         #
         # Nota: Transformar em `set` é para remover repetições e o BOT
         # reagir mais rápido.
-        for card in set(player.cards):
-            await message.add_reaction(card.value)
+        async def abacate():
+            for card in set(player.cards):
+                await message.add_reaction(card.value)
+
+        coroutine = abacate()
+        task = self.bot.loop.create_task(coroutine)
 
         # Função que será usada para verificar o evento de reação.
         def check(reaction, user):
@@ -71,6 +78,8 @@ class Fun(commands.Cog):
             # Caso passe os 60 segundos, retorna `None` poiu o jogador
             # não selecionou nenhuma carta.
             return
+        finally:
+            task.cancel()
 
         # Deleta a mensagem dizendo que é a vez do jogador.
         await message.delete()
@@ -101,6 +110,9 @@ class Fun(commands.Cog):
         # Intânceia os objetos dos jogadores.
         player = Player(player_one)
         enemy = Player(player_two)
+
+        await channel.send("Verifique se a opção 'Mostrar reações de emojis em mensagens' de 'Texto e imagens' nas configurações está habilidade para você poder jogar! O jogo começa em 10 segundos!", delete_after=15)
+        await asyncio.sleep(12)
 
         # Avisa que a partida começou.
         await channel.send("Partida iniciada no privado de vocês, deem uma olhada!")
@@ -137,20 +149,27 @@ class Fun(commands.Cog):
                                                                         enemy)
                 # Envia para o outro jogador a carta que o jogador
                 # escolheu e o resultado da ação da carta.
-                await message.edit(content=f"O seu oponente escolheu a carta {card.name} {card.value}! {enemy_result}", embed=None, delete_after=30)
+                embed = player.embed()
+                embed.clear_fields()
+
+                embed.description = f"**O seu oponente escolheu a carta {card.name} {card.value}!\n{enemy_result}**"
+                await message.edit(content=None, embed=embed, delete_after=30)
                 # Envia para o jogador a carta que ele selecionou e o
                 # resultado da sua ação.
-                await player.user.send(f"Você usou a carta {card.name} {card.value}! {player_result}", delete_after=30)
+                embed.description = f"**Você usou a carta {card.name} {card.value}!\n{player_result}**"
+                await player.user.send(embed=embed, delete_after=30)
 
                 # Salva a carta que o jogador escolheu.
                 if card != Cards.PINK:
                     player.last_card = card
 
-        player_message = "Você perdeu!"
-        enemy_message = "Você venceu!"
+                await asyncio.sleep(3)
+
+        player_message = LOST_MESSAGE
+        enemy_message = WIN_MESSAGE
         if enemy.dead:
-            player_message = "Você venceu!"
-            enemy_message = "Você perdeu!"
+            player_message = WIN_MESSAGE
+            enemy_message = LOST_MESSAGE
 
         try:
             await player.user.send(player_message, delete_after=30)
@@ -236,6 +255,28 @@ class Fun(commands.Cog):
 
         # Inicia a partida.
         await self.start_match(ctx.channel, ctx.author, target)
+
+    @commands.command(
+        name="jogo",
+        aliases=["game",],
+        usage="jogo"
+    )
+    async def game_command(self, ctx) -> None:
+        msg = "O jogo é jogador contra jogador, cada um recebe 3 corações, vermelho, amarelo e verde, e começam com 5 cartas aleatórias.\n\n"
+
+        cards_ = []
+        for card in cards.all:
+            e = Cards[card.__name__.upper()]
+            cards_.append(f"{e.value} - **{e.name.capitalize()}**{card.__doc__}")
+        cards_ = '\n'.join(cards_)
+
+        embed = discord.Embed(color=0x8257e6, description=msg)
+        embed.add_field(name="Cartas", value=cards_)
+
+        msg = "Se as suas vidas se esgotarem, você perde e o seu oponente ganha!\n\n"
+        embed.add_field(name="Extras", value=msg, inline=False)
+
+        await ctx.send(embed=embed)
 
 def setup(bot: t.Type[commands.Bot]) -> None:
     """
