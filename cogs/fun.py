@@ -47,8 +47,11 @@ class Fun(commands.Cog):
         #
         # Nota: Transformar em `set` é para remover repetições e o BOT
         # reagir mais rápido.
-        for card in set(player.cards):
-            await message.add_reaction(card.value)
+        async def abacate():
+            for card in set(player.cards):
+                await message.add_reaction(card.value)
+
+        task = self.bot.loop.create_task(abacate)
 
         # Função que será usada para verificar o evento de reação.
         def check(reaction, user):
@@ -74,6 +77,8 @@ class Fun(commands.Cog):
             # Caso passe os 60 segundos, retorna `None` poiu o jogador
             # não selecionou nenhuma carta.
             return
+        finally:
+            task.cancel()
 
         # Deleta a mensagem dizendo que é a vez do jogador.
         await message.delete()
