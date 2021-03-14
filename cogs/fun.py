@@ -122,6 +122,24 @@ class Fun(commands.Cog):
             # Faz um swap de quem é o jogador e quem é o oponente.
             player, enemy = enemy, player
 
+            if not player.cards:
+                rcards = player._random_cards(3)
+                player.cards = rcards
+                rcards = " ".join(c.value for c in rcards)
+                await player.user.send(
+                    embed=discord.Embed(
+                        color=0xFFA500, description=f"Você recebeu 3 cartas {rcards}")
+                    )
+
+            if not enemy.cards:
+                rcards = enemy._random_cards(3)
+                enemy.cards = rcards
+                rcards = " ".join(c.value for c in rcards)
+                await enemy.user.send(
+                    embed=discord.Embed(
+                        color=0xFFA500, description=f"Você recebeu 3 cartas {rcards}")
+                    )
+
             # Envia uma mensagem de aguardo para o oponente.
             message = await enemy.user.send(
                 "Aguarde o turno do seu oponente!", embed=player.embed())

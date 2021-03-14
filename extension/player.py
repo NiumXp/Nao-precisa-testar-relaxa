@@ -32,7 +32,7 @@ class Player:
         # Cria o atributo de vida com todas os corações disponíveis. 
         self.lifes = list(utils.Hearts)
         # Cria o atributo de cartas só que com cartas aleatórias.
-        self.cards = self._random_cards(5)
+        self.cards = self._random_cards(1)
 
         # Cria o atributo da ultima carta jogada.
         self.last_card = None
