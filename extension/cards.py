@@ -25,26 +25,43 @@ class RemoveHeartAction(CardAction):
 
 
 class Red(RemoveHeartAction):
+    """
+    O usuário remove o coração vermelho do seu openente.
+    """
     def get_heart(self, _):
         return Hearts.RED
 
 
 class Yellow(RemoveHeartAction):
+    """
+    O usuário remove o coração amarelo do seu openente.
+    """
     def get_heart(self, _):
         return Hearts.YELLOW
 
 
 class Green(RemoveHeartAction):
+    """
+    O usuário remove o coração verde do seu oponente.
+    """
     def get_heart(self, _):
         return Hearts.GREEN
 
 
 class Blue(RemoveHeartAction):
+    """
+    O usuário remove qualquer coração do seu oponente.
+    """
     def get_heart(self, enemy):
         return random.choice(enemy.lifes)
 
 
 class White(CardAction):
+    """
+    O usuário remove uma carta do seu oponente.
+
+    Se o seu oponente não tiver nenhuma carta, a carta é perdida.
+    """
     async def execute(self, player, enemy):
         items = len(enemy.cards)
         if items == 0:
@@ -57,6 +74,10 @@ class White(CardAction):
 
 
 class Black(CardAction):
+    """
+    O usuário recebe uma carta aleatória (não é possível receber uma
+    carta preta). 
+    """
     async def execute(self, player, enemy):
         cards = list(Cards)
         cards.remove(Cards.BLACK)
@@ -68,6 +89,14 @@ class Black(CardAction):
 
 
 class Pink(CardAction):
+    """
+    Faz o usuário repetir o que a última carta jogada fez.
+
+    Por exemplo, se o jogador jogou uma carta vermelha e em seguida
+    jogou uma carta rosa, a carta rosa fará o que a carta vermelha fez.
+
+    Se for a carta rosa for a primeira carta jogada, ela será perdida.
+    """
     async def execute(self, player, enemy):
         last_card = player.last_card
         if not last_card:
@@ -77,6 +106,9 @@ class Pink(CardAction):
 
 
 class Orange(CardAction):
+    """
+    O usuário recebe um coração aleatório!
+    """
     async def execute(self, player, enemy):
         hearts = list(Hearts)
         heart = random.choice(hearts)
