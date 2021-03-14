@@ -32,7 +32,7 @@ async def help_command(ctx, *, cmd: str = None):
         commands = '\n'.join(commands)
 
         embed = discord.Embed(
-            description=f"{bot.description}```ini\nUtilize {bot_prefix}help `commando` para saber mais sobre um commando específico.\n\n[Comandos]\n{commands}\n\n[Legenda]\n- <> argumento obrigatório\n- () argumento opcional```",
+            description=f"{bot.description}```ini\nUtilize {bot_prefix}help `commando` para saber mais sobre um commando específico.\n\n[Comandos]\n{commands}\n\n[Legenda]\n<> argumento obrigatório\n() argumento opcional```",
             timestamp=ctx.message.created_at,
             color=ctx.author.color
         )
