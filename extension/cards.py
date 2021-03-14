@@ -80,6 +80,7 @@ all = [Red, Yellow, Green, Blue, White, Black, Pink]
 
 
 def get_by_name(name: str):
+    name = name.capitalize()
     # Percorre todas as CardAction registradas.
     for card in all:
         # Se a classe tiver o mesmo que nome que `name`
