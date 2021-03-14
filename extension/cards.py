@@ -32,7 +32,7 @@ class RemoveHeartAction(CardAction):
 
 class Red(RemoveHeartAction):
     """
-    O usuário remove o coração vermelho do seu openente.
+    Remove o coração vermelho do openente.
     """
     def get_heart(self, _):
         return Hearts.RED
@@ -40,7 +40,7 @@ class Red(RemoveHeartAction):
 
 class Yellow(RemoveHeartAction):
     """
-    O usuário remove o coração amarelo do seu openente.
+    Remove o coração amarelo do openente.
     """
     def get_heart(self, _):
         return Hearts.YELLOW
@@ -48,7 +48,7 @@ class Yellow(RemoveHeartAction):
 
 class Green(RemoveHeartAction):
     """
-    O usuário remove o coração verde do seu oponente.
+    Rremove o coração verde do oponente.
     """
     def get_heart(self, _):
         return Hearts.GREEN
@@ -56,7 +56,7 @@ class Green(RemoveHeartAction):
 
 class Blue(RemoveHeartAction):
     """
-    O usuário remove qualquer coração do seu oponente.
+    Remove qualquer coração do oponente.
     """
     def get_heart(self, enemy):
         # Retorna um coração aleatório do inimigo.
@@ -65,9 +65,9 @@ class Blue(RemoveHeartAction):
 
 class White(CardAction):
     """
-    O usuário remove uma carta do seu oponente.
+    Remove uma carta aleatória do oponente.
 
-    Se o seu oponente não tiver nenhuma carta, a carta é perdida.
+    Se o oponente não tiver nenhuma carta, esta carta é perdida.
     """
     async def execute(self, player, enemy):
         items = len(enemy.cards)
@@ -82,8 +82,7 @@ class White(CardAction):
 
 class Black(CardAction):
     """
-    O usuário recebe uma carta aleatória (não é possível receber uma
-    carta preta). 
+    Recebe uma carta aleatória (não é possível receber uma carta preta).
     """
     async def execute(self, player, enemy):
         cards = list(Cards)
@@ -114,7 +113,7 @@ class Pink(CardAction):
 
 class Orange(CardAction):
     """
-    O usuário recebe um coração aleatório!
+    Recebe um coração aleatório!
     """
     async def execute(self, player, enemy):
         hearts = list(Hearts)
