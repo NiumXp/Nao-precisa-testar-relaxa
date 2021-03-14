@@ -23,6 +23,8 @@ class Player:
         Vidas do jogador.
     cards : list[utils.Cards]
         Cartas do jogador.
+    last_card : utils.Cards
+        Última carta que o jogador jogou.
     """
     def __init__(self, user: discord.User):
         self.user = user
@@ -31,6 +33,9 @@ class Player:
         self.lifes = list(utils.Hearts)
         # Cria o atributo de cartas só que com cartas aleatórias.
         self.cards = self._random_cards()
+
+        # Cria o atributo da ultima carta jogada.
+        self.last_card = None
 
     @staticmethod
     def _random_cards(amount=8) -> list:
