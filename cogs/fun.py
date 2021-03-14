@@ -146,6 +146,8 @@ class Fun(commands.Cog):
                 if card != Cards.PINK:
                     player.last_card = card
 
+                await asyncio.sleep(3)
+
         player_message = "Você perdeu!"
         enemy_message = "Você venceu!"
         if enemy.dead:
